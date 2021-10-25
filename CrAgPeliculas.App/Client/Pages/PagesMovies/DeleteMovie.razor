@@ -1,0 +1,34 @@
+@page "/movies/delete/{id:int}"
+
+<HeaderComponent></HeaderComponent>
+
+<div class="container-fluid bg-warning p-3">
+    <h1>¿ Desea ELIMINAR definitivamente la pelicula @Movie.Title ?</h1>
+    <button class="btn btn-lg btn-danger" @onclick="Delete">ELIMINAR</button>
+</div>
+
+<FooterComponent></FooterComponent>
+
+@code{ 
+    [Parameter] public int id {get;set;}
+    public Movie Movie {get;set;}
+
+    protected override void OnInitialized()
+    {
+        Movie = new Movie(){ Id = 1 };
+    }
+
+    void Delete()
+    {
+        return;
+    }
+
+}
+
+
+
+
+
+
+
+

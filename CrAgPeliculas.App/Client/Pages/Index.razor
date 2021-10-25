@@ -1,0 +1,30 @@
+﻿@page "/"
+@inject IRepositories repository
+
+<HeaderComponent/>
+ 
+<div class="row bg-black">
+    <BackdropsMoviesComponent Movies="Movies"></BackdropsMoviesComponent>
+    <MosaicProfilesComponent Staffs="Staffs"></MosaicProfilesComponent>
+</div>
+
+<PostersMoviesComponent Movies="Movies" IsAdmin="IsAdmin"></PostersMoviesComponent> 
+
+<FooterComponent/>
+
+@code{
+
+    public bool IsAdmin = true;
+    public List<Movie> Movies { get; set; }
+    public List<Staff> Staffs { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var responseHttpMovies = await repository.Get<List<Movie>>("api/Movie");
+        Movies = responseHttpMovies.Response;
+
+        var responseHttpStaff = await repository.Get<List<Staff>> ("api/Staff");
+        Staffs = responseHttpStaff.Response;
+    }    
+
+}

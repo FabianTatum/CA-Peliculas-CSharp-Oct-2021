@@ -1,0 +1,42 @@
+@if(Movies == null)
+{
+    <h1>Cargando...</h1>
+}
+else
+{
+    <div class="container-fluid bg-danger p-0 p-lg-5">
+        <div class="row">
+            <div class="card-group">
+                @foreach (var Movie in Movies)
+                {
+                    <div class="col-sm-6 col-md-2 p-2">
+                        <a href="/movies/@Movie.Id">
+                        <div class="card bg-warning">
+                            <img src=@Movie.Poster class="card-img-top" alt=@Movie.Title>
+                            <div class="card-body">
+                                <h5 class="card-title fs-6">@Movie.Title</h5>
+                                <p class="card-text"><small class="text-muted">@Movie.Score.ToString()</small></p>
+                                @if(IsAdmin)
+                                {
+                                    <AdminPostersEditDelete Movie="Movie"></AdminPostersEditDelete>
+                                }
+                                <div class="d-flex m-2 align-items-center justify-content-center">
+                                    <TrailerMoviesComponent RedirectTrailer="@Movie.Trailer" TypeOfButtonTrailer="Poster"></TrailerMoviesComponent>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+
+    [Parameter] public List<Movie> Movies {get;set;}
+    [Parameter] public bool IsAdmin {get;set;}
+
+}

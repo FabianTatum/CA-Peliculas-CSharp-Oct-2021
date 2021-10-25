@@ -1,0 +1,96 @@
+<div class="container-fluid bg-secondary">
+
+    <EditForm Model="Staff" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+
+        <div class="row bg-warning">
+            <div class="col-4 m-2">
+                <InputText class="form-control" @bind-Value=@Staff.Name placeholder="Nombre"></InputText>
+                <ValidationMessage For=@( () => @Staff.Name )></ValidationMessage>
+            </div>
+            <div class="col-4 m-2">
+                <InputText class="form-control" @bind-Value=@Staff.LastName placeholder="Apellidos"></InputText>
+                <ValidationMessage For=@( () => @Staff.LastName )></ValidationMessage>
+            </div>
+            <div class="col-4 m-2">
+                <InputDate class="form-control" @bind-Value=@Staff.DateOfBirth placeholder="Fecha de Nacimiento">
+                </InputDate>
+                <ValidationMessage For=@( () => @Staff.DateOfBirth )></ValidationMessage>
+            </div>
+            <div class="col-4 m-2">
+                <InputSelect class="form-control" @bind-Value=@Staff.Gender placeholder="Genero">
+                    @foreach (var gender in Enum.GetValues(typeof(Gender)))
+                    {
+                        <option value=@gender> @gender </option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="col-4 m-2">
+                <InputText class="form-control" @bind-Value=@Staff.CityOfBirth placeholder="Ciudad de Origen">
+                </InputText>
+                <ValidationMessage For=@( () => @Staff.CityOfBirth )></ValidationMessage>
+            </div>
+            <div class="col-4 m-2">
+                <InputSelect class="form-control" @bind-Value=@Staff.Role placeholder="Rol de Trabajo">
+                    @foreach (var rol in Enum.GetValues(typeof(Role)))
+                    {
+                        <option value=@rol> @rol </option>
+                    }
+                </InputSelect>
+            </div>
+                <ValidationMessage For=@( () => @Staff.Role )></ValidationMessage>
+            <div class="col-4 m-2">
+                <InputNumber class="form-control" @bind-Value=@Staff.KnowCredits placeholder="Participaciones Conocidas">
+                </InputNumber>
+                <ValidationMessage For=@( () => @Staff.KnowCredits )></ValidationMessage>
+            </div>
+            <div class="col-4 m-2">
+                <InputTextArea class="form-control" @bind-Value=@Staff.Biography aria-placeholder="Biografia">
+                </InputTextArea>
+                <ValidationMessage For=@( () => @Staff.Biography )></ValidationMessage>
+            </div>
+        </div>
+
+        <div class="row bg-info">
+            <AdminChargeImage Label="Profile Image" ImageURL=@ImageUrl ImageSelected="ImageSelected"></AdminChargeImage>
+        </div>
+
+        <AdminSelectComponent NotSelectedList="NotSelected" SelectedList="Selected"></AdminSelectComponent>
+
+        <button class="btn btn-outline-success m-3">Crear</button>
+
+    </EditForm>
+
+</div>
+
+@code {
+
+    [Parameter] public Staff Staff { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<Movie> NotSelectedMovies { get; set; }
+    [Parameter] public List<Movie> SelectedMovies { get; set; }
+
+    private List<MultiSelectorModel> NotSelected { get; set; } = new List<MultiSelectorModel>();
+    private List<MultiSelectorModel> Selected { get; set; } = new List<MultiSelectorModel>();
+
+    string ImageUrl;
+
+    protected override void OnInitialized()
+    {
+
+        NotSelected = NotSelectedMovies.Select( m => new MultiSelectorModel( m.Id.ToString(), m.Title)).ToList();
+        Selected = SelectedMovies.Select( m => new MultiSelectorModel( m.Id.ToString(), m.Title)).ToList();
+
+        if (!string.IsNullOrEmpty(Staff.ProfileImage))
+        {
+            ImageUrl = Staff.ProfileImage;
+            Staff.ProfileImage = null;
+        }
+    }
+
+    private void ImageSelected(string imageB64)
+    {
+        Staff.ProfileImage = imageB64;
+        ImageUrl = null;
+    }
+}

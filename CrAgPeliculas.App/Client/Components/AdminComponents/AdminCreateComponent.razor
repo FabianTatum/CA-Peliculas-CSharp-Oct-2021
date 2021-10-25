@@ -1,0 +1,19 @@
+<div class="Container-fluid p-3 bg-warning bg-opacity-25">
+    <div class="table">
+        <tr>
+            <td>
+                <p>¿ Deseas Agregar Nuevas @NameEntity ?<a href="/@UriEntity/create" class="btn btn-outline-success ms-3">Crear</a></p>
+            </td>
+        </tr>
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public Movie Movie {get;set;}
+    [Parameter] public Staff Staff {get;set;}
+    [Parameter] public Category Category {get;set;}
+
+    [Parameter] public string NameEntity { get; set; }
+    [Parameter] public string UriEntity { get; set; }
+}

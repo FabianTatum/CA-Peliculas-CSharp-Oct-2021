@@ -1,0 +1,38 @@
+@page "/staff/create"
+@inject IRepositories repository
+@inject IShowAlerts showAlert
+@inject NavigationManager navigation
+
+<HeaderComponent></HeaderComponent>
+
+
+<AdminFormStaff Staff="Staff" OnValidSubmit="Create" NotSelectedMovies="NotSelectedMovies" SelectedMovies="SelectedMovies"></AdminFormStaff>
+
+<FooterComponent></FooterComponent>
+
+@code{
+
+    private Staff Staff = new Staff();
+
+    private List<Movie> NotSelectedMovies { get; set; }
+    private List<Movie> SelectedMovies { get; set; } = new List<Movie>();
+
+    protected override void OnInitialized()
+    {
+        NotSelectedMovies = new List<Movie>(); 
+    }
+
+    private async Task Create()
+    {
+        var httpResponse = await repository.Post("api/Staff", Staff);
+        if(httpResponse.Error)
+        {
+            await showAlert.ShowAlertMessage(await httpResponse.GetStringMsg());
+        }
+        else
+        {
+            navigation.NavigateTo("/staff");
+        }
+    }
+
+}

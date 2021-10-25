@@ -1,0 +1,29 @@
+@page "/categories"
+@inject IRepositories repository
+@inject IShowAlerts showAlert
+
+<HeaderComponent></HeaderComponent>
+
+@if(IsAdmin)
+{
+    <AdminCreateComponent Category="Category"></AdminCreateComponent>
+}
+
+    <ButtonsComponent Categories="Categories"></ButtonsComponent>
+
+<FooterComponent/>
+
+@code{
+
+    public bool IsAdmin = true;
+
+    public Category Category { get; set; } = new Category();
+
+    public List<Category> Categories { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var responseHttp = await repository.Get<List<Category>>("api/Category");
+        Categories = responseHttp.Response;
+    }
+}
