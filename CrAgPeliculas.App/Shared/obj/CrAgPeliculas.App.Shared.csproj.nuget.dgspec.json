@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\2.PersonalProjects\\ProyectoCreativeAgencyPeliculas.io\\CrAgPeliculas.App\\Shared\\CrAgPeliculas.App.Shared.csproj": {}
+    "C:\\2.PersonalProjects\\PuntoNETTecnologies\\CrAgPeliculas.App\\Shared\\CrAgPeliculas.App.Shared.csproj": {}
   },
   "projects": {
-    "C:\\2.PersonalProjects\\ProyectoCreativeAgencyPeliculas.io\\CrAgPeliculas.App\\Shared\\CrAgPeliculas.App.Shared.csproj": {
+    "C:\\2.PersonalProjects\\PuntoNETTecnologies\\CrAgPeliculas.App\\Shared\\CrAgPeliculas.App.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\2.PersonalProjects\\ProyectoCreativeAgencyPeliculas.io\\CrAgPeliculas.App\\Shared\\CrAgPeliculas.App.Shared.csproj",
+        "projectUniqueName": "C:\\2.PersonalProjects\\PuntoNETTecnologies\\CrAgPeliculas.App\\Shared\\CrAgPeliculas.App.Shared.csproj",
         "projectName": "CrAgPeliculas.App.Shared",
-        "projectPath": "C:\\2.PersonalProjects\\ProyectoCreativeAgencyPeliculas.io\\CrAgPeliculas.App\\Shared\\CrAgPeliculas.App.Shared.csproj",
+        "projectPath": "C:\\2.PersonalProjects\\PuntoNETTecnologies\\CrAgPeliculas.App\\Shared\\CrAgPeliculas.App.Shared.csproj",
         "packagesPath": "C:\\Users\\Fabian\\.nuget\\packages\\",
-        "outputPath": "C:\\2.PersonalProjects\\ProyectoCreativeAgencyPeliculas.io\\CrAgPeliculas.App\\Shared\\obj\\",
+        "outputPath": "C:\\2.PersonalProjects\\PuntoNETTecnologies\\CrAgPeliculas.App\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

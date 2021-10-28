@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sp8DnBgpltwrw34Obhx9LHzNoXIQXeuxqEKQzZT1wsWfwUacVq++H6UAAVD/e0ovunn2d3oynUenhxJLXE5cRQ==",
+  "dgSpecHash": "u0kKjTcAsNubjnWh8F47WbUy3Rue2YB4Npi8+8SJTS4ei4R7sDDebYpnYW5We/ny4JtX6NTPfcq40Lk8qVRLXw==",
   "success": true,
-  "projectFilePath": "C:\\2.PersonalProjects\\ProyectoCreativeAgencyPeliculas.io\\CrAgPeliculas.App\\Server\\CrAgPeliculas.App.Server.csproj",
+  "projectFilePath": "C:\\2.PersonalProjects\\PuntoNETTecnologies\\CrAgPeliculas.App\\Server\\CrAgPeliculas.App.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Fabian\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Fabian\\.nuget\\packages\\microsoft.aspnetcore.authorization\\5.0.10\\microsoft.aspnetcore.authorization.5.0.10.nupkg.sha512",

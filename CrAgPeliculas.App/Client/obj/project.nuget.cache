@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "n8X1H27IH1V9DyGIzEaVUDJhqzp/7rTUYr5HwJB18UOfdNahWxaxQy10lu+yWcBT5tqaqJS41yYat1D8MmI60w==",
+  "dgSpecHash": "sIth0FwCfme93eb36WofR8hMN2rWUAmdJRx/BJrZvy1U3k7+iQrrURRgSZQADkjER0/hIAqDCrBRQ6azaY1hjw==",
   "success": true,
-  "projectFilePath": "C:\\2.PersonalProjects\\ProyectoCreativeAgencyPeliculas.io\\CrAgPeliculas.App\\Client\\CrAgPeliculas.App.Client.csproj",
+  "projectFilePath": "C:\\2.PersonalProjects\\PuntoNETTecnologies\\CrAgPeliculas.App\\Client\\CrAgPeliculas.App.Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Fabian\\.nuget\\packages\\microsoft.aspnetcore.authorization\\5.0.10\\microsoft.aspnetcore.authorization.5.0.10.nupkg.sha512",
     "C:\\Users\\Fabian\\.nuget\\packages\\microsoft.aspnetcore.components\\5.0.10\\microsoft.aspnetcore.components.5.0.10.nupkg.sha512",
