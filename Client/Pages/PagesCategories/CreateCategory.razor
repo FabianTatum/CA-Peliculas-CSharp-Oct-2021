@@ -1,0 +1,39 @@
+@page "/categories/create"
+@inject IRepositories repository
+@inject NavigationManager navigationManager
+@inject IShowAlerts showAlerts
+
+<HeaderComponent></HeaderComponent>
+
+<AdminFormCategory Category="Category" OnValidSubmit="Create" NotSelectedMovies="NotSelectedMovies" SelectedMovies="SelectedMovies" ></AdminFormCategory>
+
+
+<FooterComponent></FooterComponent>
+
+
+@code{
+
+    public Category Category { get; set; } = new Category();
+
+    public List<Movie> NotSelectedMovies;
+    public List<Movie> SelectedMovies = new List<Movie>();
+
+    protected override void OnInitialized()
+    {
+        NotSelectedMovies = new List<Movie>();
+    }
+
+    private async Task Create()
+    {
+        var httpResponse = await repository.Post("api/Category", Category);
+        if(httpResponse.Error)
+        {
+            await showAlerts.ShowAlertMessage(await httpResponse.GetStringMsg());
+        }
+        else
+        {
+            navigationManager.NavigateTo("/categories");
+        }
+        
+    }
+}

@@ -1,0 +1,44 @@
+@page "/categories/edit/{id:int}"
+@inject IRepositories repository
+@inject NavigationManager navigation
+
+<HeaderComponent></HeaderComponent>
+
+@if(Category == null)
+{
+    <h1>Cargando...</h1>
+}
+else
+{
+    <AdminFormCategory Category="Category" OnValidSubmit="Update" NotSelectedMovies="NotSelectedMovies" SelectedMovies="SelectedMovies"></AdminFormCategory>
+}
+
+<FooterComponent></FooterComponent>
+
+@code{
+
+    [Parameter] public int id { get; set; }
+    public Category Category { get; set; }
+    public List<Movie> NotSelectedMovies { get; set; } = new List<Movie>(); 
+    public List<Movie> SelectedMovies { get; set; } = new List<Movie>(); 
+
+    protected async override Task OnInitializedAsync()
+    {
+        var httpResponse = await repository.Get<Category>($"api/Category/{id}");
+        Category = httpResponse.Response;
+    }
+    
+    private async Task Update()
+    {    
+        var httpResponse = await repository.Put<Category>($"api/Category", Category);
+        if(httpResponse.Error)
+        {
+            Console.WriteLine("Error");
+        }
+        else
+        {
+            navigation.NavigateTo("/categories");
+        }
+    }
+
+}

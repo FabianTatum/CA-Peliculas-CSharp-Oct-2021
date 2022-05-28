@@ -1,0 +1,28 @@
+@page "/categories/delete/{id:int}"
+
+<HeaderComponent></HeaderComponent>
+
+
+<div class="container-fluid bg-warning p-3">
+    <h1>¿ Desea ELIMINAR definitivamente la categoria @Category.Name ?</h1>
+    <button class="btn btn-lg btn-danger" @onclick="Delete">ELIMINAR</button>
+</div>
+
+
+<FooterComponent></FooterComponent>
+
+@code{
+
+    [Parameter] public int id { get; set; }
+    public Category Category { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Category = new Category(){ Id = 1 };
+    }
+    
+    void Delete()
+    {
+        return;
+    }
+}

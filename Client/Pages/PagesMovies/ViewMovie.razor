@@ -1,0 +1,33 @@
+@page "/movies/{id:int}"
+@inject IRepositories repository
+
+
+<HeaderComponent></HeaderComponent>
+
+    <div>
+        @if(IsAdmin)
+        {
+            <AdminCreateComponent Movie="Movie" NameEntity="Peliculas" UriEntity="movies"></AdminCreateComponent>
+        }
+    </div>
+
+    <div>
+
+        <CardMoviesComponent Movie="Movie" />
+
+    </div>
+
+<FooterComponent></FooterComponent>
+
+@code{
+
+    public bool IsAdmin = true;
+    [Parameter] public int id {get;set;}
+    public Movie Movie;
+
+    protected async override Task OnInitializedAsync()
+    {
+       var responseHttp = await repository.Get<Movie> ($"api/movie/{id}");
+        Movie = responseHttp.Response; 
+    } 
+}

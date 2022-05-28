@@ -1,0 +1,33 @@
+@page "/staff/{id:int}"
+@inject IRepositories repository
+
+<HeaderComponent></HeaderComponent>
+
+    @if(IsAdmin)
+    {
+        <AdminCreateComponent Staff="Staff" NameEntity="Estrellas" UriEntity="staff"></AdminCreateComponent>
+    }
+
+        <CardProfilesComponent Staff="Staff"/>
+
+    @if(IsAdmin)
+    {
+        <AdminEditDeleteComponent Staff="Staff"></AdminEditDeleteComponent>
+    }
+
+<FooterComponent></FooterComponent>
+
+@code{
+
+    public bool IsAdmin = true;
+
+    [Parameter] public int id {get;set;}
+    public Staff Staff {get;set;}
+
+    protected async override Task OnInitializedAsync()
+    {
+        var responseHttp = await repository.Get<Staff> ($"api/staff/{id}");
+        Staff = responseHttp.Response; 
+    } 
+
+}

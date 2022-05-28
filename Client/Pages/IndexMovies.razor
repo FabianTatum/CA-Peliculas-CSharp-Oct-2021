@@ -1,0 +1,30 @@
+@page "/movies"
+@inject IRepositories repository
+
+<HeaderComponent></HeaderComponent>
+
+    @if (IsAdmin)
+    {
+       <AdminCreateComponent Movie="Movie"></AdminCreateComponent> 
+    }
+ 
+    <div>
+        @* <FilterMoviesComponent IsAdmin="IsAdmin"/> *@
+    </div>
+
+    <PostersMoviesComponent Movies="Movies" IsAdmin="IsAdmin"></PostersMoviesComponent>
+
+<FooterComponent></FooterComponent>
+
+@code {
+
+    public bool IsAdmin = true;
+    public Movie Movie = new Movie(); 
+    public List<Movie> Movies { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        var responseHttp = await repository.Get<List<Movie>> ("api/Movie");
+        Movies = responseHttp.Response;
+    }
+}

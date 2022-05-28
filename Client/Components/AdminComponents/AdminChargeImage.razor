@@ -1,0 +1,46 @@
+<div class="bg-success p-2">@Label
+
+    <div class="bg-primary p-2">
+        <InputFile OnChange="OnChange" accept=".jpg,.png,.jpeg"></InputFile>
+   </div>
+
+    @if (ProcessedImage != null)
+    {
+        <div class="m-3 bg-danger">
+            <img src="data:image/jpeg;base64,@ProcessedImage" width="300px" alt="">
+        </div>
+    }
+
+    @if (ImageURL != null)
+    {
+         <div class="m-3 bg-danger">
+            <img src=@ImageURL width="300px" alt="">
+        </div>
+    }
+
+</div>
+
+@code{
+
+    [Parameter] public string Label {get;set;} = "Foto de Perfil";
+    [Parameter] public string ImageURL {get;set;}
+    [Parameter] public EventCallback<string> ImageSelected {get;set;}
+    [Parameter] public Movie Movie {get;set;}
+
+    public string ProcessedImage;
+
+    async Task OnChange(InputFileChangeEventArgs e)
+    {
+        var images = e.GetMultipleFiles();
+        
+        foreach (var item in images)
+        {
+            var tamaño = new byte[item.Size];
+            await item.OpenReadStream().ReadAsync(tamaño);
+            ProcessedImage = Convert.ToBase64String(tamaño);
+            ImageURL = null;
+            await ImageSelected.InvokeAsync(ProcessedImage);
+            StateHasChanged();
+        }
+    }
+}

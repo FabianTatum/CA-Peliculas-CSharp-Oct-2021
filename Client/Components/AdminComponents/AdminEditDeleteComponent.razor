@@ -1,0 +1,28 @@
+<div class="container-flex p-5 bg-warning bg-opacity-25">
+    <p>¿Desea editar o borrar esta @NameEntity?</p>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        @if(Movie != null)
+        {
+            <a href="/movies/edit/@Movie.Id" class="btn btn-warning ">Editar</a>
+            <a href="/movies/delete/@Movie.Id" class="btn btn-danger ">Borrar</a>
+        }
+        else if(Staff != null)
+        {
+            <a href="/staff/edit/@Staff.Id" class="btn btn-warning ">Editar</a>
+            <a href="/staff/delete/@Staff.Id" class="btn btn-danger ">Borrar</a>
+        }
+        else if(Category != null)
+        {
+            <a href="/categories/edit/@Category.Id" class="btn btn-warning ">Editar</a>
+            <a href="/categories/delete/@Category.Id" class="btn btn-danger ">Borrar</a>
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public Movie Movie { get; set; }
+    [Parameter] public Staff Staff { get; set; }
+    [Parameter] public Category Category { get; set; }
+    [Parameter] public string NameEntity { get; set; }
+}

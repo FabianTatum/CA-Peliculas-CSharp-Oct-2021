@@ -1,0 +1,117 @@
+@if(Movie == null)
+{
+    <h1>Cargando...</h1>
+}
+else
+{
+    <div class="bg-warning p-3">
+
+        <EditForm Model=Movie OnValidSubmit="OnDataAnnotationsValidated">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+
+            <div class="row bg-secondary p-3">
+                <div class="col-4 m-2">
+                    <InputText class="form-control" @bind-Value=@Movie.Title placeholder="Titulo"></InputText>
+                    <ValidationMessage For=@( () => @Movie.Title )></ValidationMessage>
+                </div>
+                <div class="col-4 m-2">
+                    <InputDate class="form-control" @bind-Value=@Movie.Year placeholder="Titulo"></InputDate>
+                    <ValidationMessage For=@( () => @Movie.Year )></ValidationMessage>
+                </div>
+                <div class="col-4 m-2">
+                    <InputNumber class="form-control" @bind-Value=@Movie.Score placeholder="Calificacion"></InputNumber>
+                    <ValidationMessage For=@( () => @Movie.Score )></ValidationMessage>
+                </div>
+                <div class="col-4 m-2">
+                    <InputText class="form-control" @bind-Value=@Movie.Trailer placeholder="Link del Trailer"></InputText>
+                    <ValidationMessage For=@( () => @Movie.Trailer )></ValidationMessage>
+                </div>
+                <div class="col-4 m-2">
+                    <InputTextArea class="form-control" @bind-Value=@Movie.Overview placeholder="Sinopsis"></InputTextArea>
+                    <ValidationMessage For=@( () => @Movie.Overview )></ValidationMessage>
+                </div>
+        </div>
+
+                <AdminChargeImage Label="Portada" ImageURL=@ImageUrlBackdrop ImageSelected="ImageBackdrop" Movie="Movie"></AdminChargeImage>
+
+                <AdminChargeImage Label="Poster" ImageURL=@ImageUrlPoster ImageSelected="ImagePoster" Movie="Movie"></AdminChargeImage>
+                    <ValidationMessage For=@( () => @Movie.Poster )></ValidationMessage>
+
+            <div class="bg-secondary">
+                <h6>Lista Actores</h6>
+                <AdminSelectComponent NotSelectedList="NotSelectedStaffMulti" SelectedList="SelectedStaffMulti"></AdminSelectComponent>
+                <h6>Lista Categorias</h6>
+                <AdminSelectComponent NotSelectedList="NotSelectedCategoriesMulti" SelectedList="SelectedCategoriesMulti"></AdminSelectComponent>
+            </div> 
+
+            <button class="btn btn-outline-success m-3">Crear</button>
+        </EditForm>
+
+    </div>
+}
+
+@code{
+
+    [Parameter] public Movie Movie {get;set;}
+    [Parameter] public EventCallback OnValidSubmit {get;set;}
+    [Parameter] public List<Staff> NotSelectedStaff { get; set; }
+    [Parameter] public List<Staff> SelectedStaff { get; set; }
+    [Parameter] public List<Category> NotSelectedCategories { get; set; }
+    [Parameter] public List<Category> SelectedCategories { get; set; }
+
+    public List<MultiSelectorModel> NotSelectedStaffMulti { get; set; }
+    public List<MultiSelectorModel> SelectedStaffMulti { get; set; }
+    public List<MultiSelectorModel> NotSelectedCategoriesMulti { get; set; }
+    public List<MultiSelectorModel> SelectedCategoriesMulti { get; set; }
+
+    string ImageUrlBackdrop;
+    string ImageUrlPoster;
+
+    protected override void OnInitialized()
+    {
+
+        NotSelectedStaffMulti = NotSelectedStaff.Select( s => new MultiSelectorModel( s.Id.ToString(), s.Name)).ToList();
+        SelectedStaffMulti = SelectedStaff.Select( s => new MultiSelectorModel( s.Id.ToString(), s.Name)).ToList();
+        NotSelectedCategoriesMulti = NotSelectedCategories.Select( c => new MultiSelectorModel( c.Id.ToString(), c.Name)).ToList();
+        SelectedCategoriesMulti = SelectedCategories.Select( c => new MultiSelectorModel( c.Id.ToString(), c.Name)).ToList();
+
+        if( !string.IsNullOrEmpty(Movie.Backdrop) )
+        {
+            ImageUrlBackdrop = Movie.Backdrop;
+            Movie.Backdrop = null;
+        }
+
+        if( !string.IsNullOrEmpty(Movie.Poster) )
+        {
+            ImageUrlPoster = Movie.Poster;
+            Movie.Poster = null;
+        }
+       
+    }
+
+    private void ImageBackdrop(string imageB64)
+    {
+        Movie.Backdrop = imageB64;
+        ImageUrlBackdrop = null;
+    }
+
+    private void ImagePoster(string imageB64)
+    {
+        Movie.Poster = imageB64;
+        ImageUrlPoster = null;
+    }
+
+    private async Task OnDataAnnotationsValidated()
+    {
+        Movie.MovieCategory = SelectedCategoriesMulti.Select( c => new MovieCategory { CategoryId = int.Parse(c.Key) }).ToList();
+        Movie.StaffMovie = SelectedStaffMulti.Select( s => new StaffMovie { StaffId = int.Parse(s.Key) }).ToList();
+
+        if(!String.IsNullOrWhiteSpace(Movie.Poster))
+        {
+           ImageUrlBackdrop = null; 
+           ImageUrlPoster = null; 
+        }
+
+        await OnValidSubmit.InvokeAsync(null);
+    }
+}
